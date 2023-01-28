@@ -4,7 +4,11 @@ THREADS_PER_PAGE = 10
 CSRF_ENABLED     = True
 CSRF_SESSION_KEY = "secret"
 
-SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@127.0.0.1:5432/vazirlik_bot"
+#work
+# SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@127.0.0.1:5432/vazirlik_bot"
+
+#msi
+SQLALCHEMY_DATABASE_URI = "postgresql://postgres:123456@127.0.0.1:5432/vazirlik_bot"
 
 SECRET_KEY = "secret"
 FLASK_ADMIN_SWATCH = "yeti"

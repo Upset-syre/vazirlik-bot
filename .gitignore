@@ -1,0 +1,3 @@
+app/config.py
+logs/
+__pycache__/
