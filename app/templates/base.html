@@ -9,7 +9,7 @@
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ url_for('static',filename='img/svg/logo.svg') }}" type="image/x-icon">
   <!-- Custom styles -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -39,19 +39,19 @@
         <div class="sidebar-body">
             <ul class="sidebar-body-menu">
                 <li>
-                    <a class="active" href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
+                    <a class="{% if active == 1 %}active {% endif %}" href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
-                    <a class="active" href="/"><span class="icon document" aria-hidden="true"></span>Yangi murojatlar</a>
+                    <a class="{% if active == 2 %}active {% endif %}" href="{{ url_for('home.pending_page') }}"><span class="icon document" aria-hidden="true"></span>Yangi murojatlar</a>
                 </li>
                 <li>
-                    <a class="active" href="/"><span class="icon message" aria-hidden="true"></span>Xal qilingan murojatlar</a>
+                    <a class="{% if active == 3 %}active {% endif %}" href="/"><span class="icon message" aria-hidden="true"></span>Xal qilingan murojatlar</a>
                 </li>
                 <li>
-                    <a class="active" href="/"><span class="icon paper" aria-hidden="true"></span>Pending murojatlar</a>
+                    <a class="{% if active == 4 %}active {% endif %}" href="/"><span class="icon paper" aria-hidden="true"></span>Pending murojatlar</a>
                 </li>
                 <li>
-                    <a class="active" href="/"><span class="icon user-3" aria-hidden="true"></span>Foydalanuvchilar</a>
+                    <a class="{% if active == 5 %}active {% endif %}" href="/"><span class="icon user-3" aria-hidden="true"></span>Foydalanuvchilar</a>
                 </li>
                 
             </ul>

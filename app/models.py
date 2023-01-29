@@ -7,6 +7,7 @@ from flask_wtf import FlaskForm
 from flask_login import UserMixin
 from wtforms.validators import InputRequired, Length, ValidationError,DataRequired
 from markupsafe import Markup
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class LoginForm(FlaskForm):
@@ -50,12 +51,23 @@ class User(BaseModel, db.Model):
 
 class AdminUser(BaseModel, db.Model):
     __tablename__ = 'admin'
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    login = db.Column(db.String)
     name = db.Column(db.String)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     password = db.Column(db.String)
+    is_authenticated = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, default=True)
 
 
+    def get_id(self):
+        return str(self.id)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password=password)
+
+
+    def check_password(self,password):
+        return check_password_hash(self.password, password)
 
 class Category(BaseModel, db.Model):
     __tablename__ = 'category'
@@ -69,10 +81,10 @@ class Category(BaseModel, db.Model):
 
 class Application(BaseModel, db.Model):
     __tablename__ = 'application'
-    status = db.Column('status', db.String, default='pending')
-    application = db.Column('application', db.Text, default='pending')
-    answer = db.Column('answer', db.String)
-    lang = db.Column('lang', db.String)
+    status = db.Column(db.String, default='pending')
+    application = db.Column(db.Text)
+    answer = db.Column(db.String)
+    lang = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
@@ -82,7 +94,12 @@ class Application(BaseModel, db.Model):
         self.answer = answer
         self.user_id = user_id
         self.category_id = category_id
-
+    
+    def format(self):
+        data = {}
+        for x in self.columns:
+            data[x] = self.x
+        return data
 
 class Text(BaseModel, db.Model):
     __tablename__ = 'text'

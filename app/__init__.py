@@ -16,7 +16,7 @@ login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return AdminUser.query.get(int(id))
 
 def create_app(testing=False):
         # Blueprints

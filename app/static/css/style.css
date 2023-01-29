@@ -4302,3 +4302,11 @@ label {
     flex-direction: column;
   }
 }
+
+.select-right{
+  float: right;
+  margin: 10px 0px;
+  border-radius: 10px;
+  border-color: none;
+  padding: 8px;
+}
