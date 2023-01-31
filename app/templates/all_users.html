@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-6"><h2 class="main-title">Tizimdagi barcha foydalanuvchilar</h2></div>
+    
+
+    <div class="users-table table-wrapper">
+      <table class="posts-table">
+        <thead>
+          <tr class="users-table-info">
+            <th>
+              <label class="users-table__checkbox ms-20">
+                Id
+              </label>
+            </th>
+            <th>FIO</th>
+            <th>Telefon raqami</th>
+            <th>Murojatlar soni</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in all_users.items %}
+          <tr>
+            <td>
+              <label class="users-table__checkbox">
+                 
+                {{ item.id }}
+              </label>
+            </td>
+            <td>
+              {{ item.fio }}
+            </td>
+            <td>
+                {{ item.phone }}
+              </td>
+            <td>
+              {{ item.application|length }}
+            </td>
+            
+            
+            
+          </tr>
+          
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+</div>
+    
+    <div class="pagination:container">
+      {% if all_users.has_prev %}
+      <a href="{{ url_for('home.all_users_page', category_id = category_id, page = all_users.prev_num ) }}" class="pagination:number arrow ">
+        <svg width="18" height="18">
+          <use xlink:href="#left" />
+        </svg>
+        <span class="arrow:text" value = >Previous</span>
+       </a>
+      {% endif %}
+
+      {% for page_num in all_users.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+      {% if page_num %}
+
+      {% if all_users.page == page_num %}
+      <a class="pagination:number pagination:active">
+        {{ page_num }}
+      </a>
+      {% else %}
+      <a href = "{{url_for('home.all_users_page', category_id=category_id, page=page_num)}}" class="pagination:number">
+        {{ page_num }}
+      </a>
+      {% endif %}
+      {% else %}
+            ...
+      {% endif %}
+      {% endfor %}
+      {% if all_users.has_next %}
+             <a href="{{url_for('home.all_users_page', category_id=category_id, page=all_users.next_num)}}" class="pagination:number arrow ">
+               <span class="arrow:text" value = >Next</span>
+              <svg width="18" height="18">
+                <use xlink:href="#right" />
+              </svg>
+             </a>
+             
+      
+      {% endif %}
+      
+    </div>
+    
+    <svg class="hide">
+      <symbol id="left" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></symbol>
+      <symbol id="right" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></symbol>
+    </svg>
+
+{% endblock %}
+
+
+
+
+
+

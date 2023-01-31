@@ -2,7 +2,7 @@ from app import db
 from sqlalchemy.orm import relationship
 import datetime
 from datetime import datetime
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from flask_wtf import FlaskForm
 from flask_login import UserMixin
 from wtforms.validators import InputRequired, Length, ValidationError,DataRequired
@@ -17,6 +17,19 @@ class LoginForm(FlaskForm):
     style={'class': 'loginform', 'style': 'margin-top:12px'}
 
     submit = SubmitField("Sign in",render_kw = style)
+
+
+class SendAnswerForm(FlaskForm):
+    style_ = {'style': 'min-height: 200px',
+    'placeholder' : 'Javob'
+    }
+
+    answer = TextAreaField(validators=[DataRequired()], render_kw = style_)
+    
+
+    style={'class': 'loginform', 'style': 'margin-top:12px'}
+
+    submit = SubmitField("Jo'natish",render_kw = style)
 
 
 
@@ -51,7 +64,7 @@ class User(BaseModel, db.Model):
 
 class AdminUser(BaseModel, db.Model):
     __tablename__ = 'admin'
-    login = db.Column(db.String)
+    login = db.Column(db.String, unique = True)
     name = db.Column(db.String)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     password = db.Column(db.String)
@@ -71,7 +84,10 @@ class AdminUser(BaseModel, db.Model):
 
 class Category(BaseModel, db.Model):
     __tablename__ = 'category'
-    name = db.Column('name', db.String)
+    name_uz = db.Column(db.String)
+    name_uz_kir = db.Column(db.String)
+    name_ru = db.Column(db.String)
+
     application = relationship("Application", backref='category')
     admins = relationship("AdminUser", backref = 'category')
 
@@ -96,10 +112,14 @@ class Application(BaseModel, db.Model):
         self.category_id = category_id
     
     def format(self):
-        data = {}
-        for x in self.columns:
-            data[x] = self.x
-        return data
+        name, phone = db.session.query(User.fio, User.phone).filter(User.id == self.user_id).first()
+        return {
+            'id' : self.id,
+            'application' : self.application,
+            'answer' : self.answer,
+            'user_fio' : name,
+            'user_phone' : phone 
+        }
 
 class Text(BaseModel, db.Model):
     __tablename__ = 'text'

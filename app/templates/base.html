@@ -7,9 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Elegant Dashboard | Dashboard</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ url_for('static',filename='img/svg/logo.svg') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/svg/logo.svg') }}" type="image/x-icon">
   <!-- Custom styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
 </head>
 
 <body>
@@ -26,8 +27,8 @@
                 <span class="sr-only">Home</span>
                 <span class="icon logo" aria-hidden="true"></span>
                 <div class="logo-text">
-                    <span class="logo-title">Elegant</span>
-                    <span class="logo-subtitle">Dashboard</span>
+                    <span class="logo-title">Vazirlik</span>
+                    <span class="logo-subtitle">Bot</span>
                 </div>
 
             </a>
@@ -42,16 +43,16 @@
                     <a class="{% if active == 1 %}active {% endif %}" href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
-                    <a class="{% if active == 2 %}active {% endif %}" href="{{ url_for('home.pending_page') }}"><span class="icon document" aria-hidden="true"></span>Yangi murojatlar</a>
+                    <a class="{% if active == 2 %}active {% endif %}" href="{{ url_for('home.pending_page', category_id = 0, page = 1) }}"><span class="icon document" aria-hidden="true"></span>Yangi murojatlar</a>
                 </li>
                 <li>
-                    <a class="{% if active == 3 %}active {% endif %}" href="/"><span class="icon message" aria-hidden="true"></span>Xal qilingan murojatlar</a>
+                    <a class="{% if active == 3 %}active {% endif %}" href="{{ url_for('home.progress_page', category_id = 0, page = 1) }}"><span class="icon message" aria-hidden="true"></span>Kutilayotgan murojatlar</a>
                 </li>
                 <li>
-                    <a class="{% if active == 4 %}active {% endif %}" href="/"><span class="icon paper" aria-hidden="true"></span>Pending murojatlar</a>
+                    <a class="{% if active == 4 %}active {% endif %}" href="{{ url_for('home.completed_page', category_id = 0, page = 1) }}"><span class="icon paper" aria-hidden="true"></span>Tugallangan murojatlar</a>
                 </li>
                 <li>
-                    <a class="{% if active == 5 %}active {% endif %}" href="/"><span class="icon user-3" aria-hidden="true"></span>Foydalanuvchilar</a>
+                    <a class="{% if active == 5 %}active {% endif %}" href="{{ url_for('home.all_users_page', page = 1) }}"><span class="icon user-3" aria-hidden="true"></span>Foydalanuvchilar</a>
                 </li>
                 
             </ul>
@@ -61,11 +62,13 @@
     <div class="sidebar-footer">
         <a href="##" class="sidebar-user">
             <span class="sidebar-user-img">
-                <picture><source srcset="{{ url_for('static', filename='img/avatar/avatar-illustrated-03.webp') }}" type="image/webp"><img src="{{ url_for('static',filename = 'img/avatar/avatar-illustrated-03.png') }}" alt="User name"></picture>
+                <picture>
+                  <source srcset="{{ url_for('static', filename='img/avatar/avatar-illustrated-03.webp') }}" type="image/webp">
+                  <img src="{{ url_for('static', filename = 'img/avatar/avatar-illustrated-03.png') }}" alt="User name"></picture>
             </span>
             <div class="sidebar-user-info">
-                <span class="sidebar-user__title">Nafisa Sh.</span>
-                <span class="sidebar-user__subtitle">Support manager</span>
+                <span class="sidebar-user__title">{{ current_user.name }}</span>
+                <span class="sidebar-user__subtitle"> Admin </span>
             </div>
         </a>
     </div>
@@ -85,73 +88,18 @@
         <span class="sr-only">Toggle menu</span>
         <span class="icon menu-toggle--gray" aria-hidden="true"></span>
       </button>
-      <div class="lang-switcher-wrapper">
-        <button class="lang-switcher transparent-btn" type="button">
-          EN
-          <i data-feather="chevron-down" aria-hidden="true"></i>
-        </button>
-        <ul class="lang-menu dropdown">
-          <li><a href="##">English</a></li>
-          <li><a href="##">French</a></li>
-          <li><a href="##">Uzbek</a></li>
-        </ul>
-      </div>
+      
       <button class="theme-switcher gray-circle-btn" type="button" title="Switch theme">
         <span class="sr-only">Switch theme</span>
         <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
         <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
       </button>
-      <div class="notification-wrapper">
-        <button class="gray-circle-btn dropdown-btn" title="To messages" type="button">
-          <span class="sr-only">To messages</span>
-          <span class="icon notification active" aria-hidden="true"></span>
-        </button>
-        <ul class="users-item-dropdown notification-dropdown dropdown">
-          <li>
-            <a href="##">
-              <div class="notification-dropdown-icon info">
-                <i data-feather="check"></i>
-              </div>
-              <div class="notification-dropdown-text">
-                <span class="notification-dropdown__title">System just updated</span>
-                <span class="notification-dropdown__subtitle">The system has been successfully upgraded. Read more
-                  here.</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="##">
-              <div class="notification-dropdown-icon danger">
-                <i data-feather="info" aria-hidden="true"></i>
-              </div>
-              <div class="notification-dropdown-text">
-                <span class="notification-dropdown__title">The cache is full!</span>
-                <span class="notification-dropdown__subtitle">Unnecessary caches take up a lot of memory space and
-                  interfere ...</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="##">
-              <div class="notification-dropdown-icon info">
-                <i data-feather="check" aria-hidden="true"></i>
-              </div>
-              <div class="notification-dropdown-text">
-                <span class="notification-dropdown__title">New Subscriber here!</span>
-                <span class="notification-dropdown__subtitle">A new subscriber has subscribed.</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="link-to-page" href="##">Go to Notifications page</a>
-          </li>
-        </ul>
-      </div>
+      
       <div class="nav-user-wrapper">
         <button href="##" class="nav-user-btn dropdown-btn" title="My profile" type="button">
           <span class="sr-only">My profile</span>
           <span class="nav-user-img">
-            <picture><source srcset="./img/avatar/avatar-illustrated-02.webp" type="image/webp"><img src="./img/avatar/avatar-illustrated-02.png" alt="User name"></picture>
+            <picture><source srcset="{{ url_for('static', filename = 'img/avatar/avatar-illustrated-03.webp') }}" type="image/webp"><img src="{{ url_for('static', filename = 'img/avatar/avatar-illustrated-03.png') }}" alt="User name"></picture>
           </span>
         </button>
         <ul class="users-item-dropdown nav-user-dropdown dropdown">
@@ -197,6 +145,8 @@
 <script src="{{  url_for('static', filename='plugins/feather.min.js' )  }}"></script>
 <!-- Custom scripts -->
 <script src="{{  url_for('static', filename = 'js/script.js') }}"></script>
+
 </body>
+
 
 </html>

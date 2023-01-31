@@ -3,22 +3,22 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-6"><h2 class="main-title">Yangi murojatlar</h2></div>
+    <div class="col-6"><h2 class="main-title">Tugallangan murojatlar</h2></div>
     <div class="col-6"><select onchange="location = this.value;" class="form-select select-right" aria-label="Default select example">
         {% set count = namespace(value=0) %}
         {% for x in all_categories %}
         
         {% if count.value == 0 and all_categories|length != 1 %}
-        <option {% if category_id == 0 %} selected {% endif %} value = {{ url_for("home.pending_page", category_id = 0, page = 1) }}>
+        <option {% if category_id == 0 %} selected {% endif %} value = {{ url_for("home.completed_page", category_id = 0, page = 1) }}>
           Barcha kategoriyalar
         </option>
-        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.pending_page", category_id = x[0], page = 1) }}>
+        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.completed_page", category_id = x[0], page = 1) }}>
           
           {{ x[1] }}
         </option>
 
         {% else %}
-        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.pending_page", category_id = x[0], page = 1) }}>
+        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.completed_page", category_id = x[0], page = 1) }}>
           {{ x[1] }}
         </option>
         {% endif %}>
@@ -46,12 +46,11 @@
             <th>Murojat kategoriyasi</th>
             <th>Murojatchi FIO</th>
             <th>Murojatchi telefon raqami</th>
-            <th>Bajarish</th>
           </tr>
         </thead>
         <tbody>
           {% set count = namespace(value=1) %}
-          {% for item in pending.items %}
+          {% for item in completed.items %}
           <tr>
             <td>
               <label class="users-table__checkbox">
@@ -69,27 +68,15 @@
               {{ item.answer }}
             </td>
             <td>
-              {{ item.category.name_uz }}
-          </td>
+                {{ item.category.name_uz }}
+            </td>
             <td>
               {{ item.users.fio }}
             </td>
             <td>
               {{ item.users.phone }}
             </td>
-            <td>
-              <span class="p-relative">
-                <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                  <div class="sr-only">More info</div>
-                  <i data-feather="more-horizontal" aria-hidden="true"></i>
-                </button>
-                <ul class="users-item-dropdown dropdown">
-                  <li><a class="a-edit" href='{{ url_for("home.send_answer", application_id = item.id) }}'>Javob yozish</a></li>
-                  <li><a class="a-edit" href="{{ url_for('home.set_progress', application_id = item.id) }}">Ko'rib chiqilmoqda</a></li>
-                  
-                </ul>
-              </span>
-            </td>
+            
           </tr>
           
           {% endfor %}
@@ -100,8 +87,8 @@
     
     
     <div class="pagination:container">
-      {% if pending.has_prev %}
-      <a href="{{ url_for('home.pending_page', category_id = category_id, page = pending.prev_num ) }}" class="pagination:number arrow ">
+      {% if completed.has_prev %}
+      <a href="{{ url_for('home.completed_page', category_id = category_id, page = completed.prev_num ) }}" class="pagination:number arrow ">
         <svg width="18" height="18">
           <use xlink:href="#left" />
         </svg>
@@ -109,15 +96,15 @@
        </a>
       {% endif %}
 
-      {% for page_num in pending.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+      {% for page_num in completed.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
       {% if page_num %}
 
-      {% if pending.page == page_num %}
+      {% if completed.page == page_num %}
       <a class="pagination:number pagination:active">
         {{ page_num }}
       </a>
       {% else %}
-      <a href = "{{url_for('home.pending_page', category_id=category_id, page=page_num)}}" class="pagination:number">
+      <a href = "{{url_for('home.completed_page', category_id=category_id, page=page_num)}}" class="pagination:number">
         {{ page_num }}
       </a>
       {% endif %}
@@ -125,8 +112,8 @@
             ...
       {% endif %}
       {% endfor %}
-      {% if pending.has_next %}
-             <a href="{{url_for('home.pending_page', category_id=category_id, page=pending.next_num)}}" class="pagination:number arrow ">
+      {% if completed.has_next %}
+             <a href="{{url_for('home.completed_page', category_id=category_id, page=completed.next_num)}}" class="pagination:number arrow ">
                <span class="arrow:text" value = >Next</span>
               <svg width="18" height="18">
                 <use xlink:href="#right" />
