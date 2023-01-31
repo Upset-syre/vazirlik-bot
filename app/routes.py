@@ -2,11 +2,10 @@ from flask import *
 import requests
 from json import loads
 from app.core import token_required
-from telebot import types,TeleBot
 from flask_login import login_required, login_user, current_user
-from aiogram.utils import executor
+
 from app.models import *
-from aiogram import types, Dispatcher, Bot
+
 Per_page = 15
 import requests
 
