@@ -176,7 +176,9 @@ def send_answer(application_id):
             requests.post(url, data=data)
             
 
-            return redirect(url_for("home.progress_page",category_id = 0, page = 1 ))
+            # return redirect(url_for("home.progress_page",category_id = 0, page = 1 ))
+            return redirect(url_for("home.pending_page",category_id = 0, page = 1 ))
+            
 
     query = db.session.query(Application).filter_by(id = application_id).first()
     return render_template("send_answer.html", application = query, form = form)

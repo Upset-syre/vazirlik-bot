@@ -86,6 +86,8 @@ def create_app(testing=False):
         
     admin = Admin(app,name='microblog', template_mode='bootstrap4')
     admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Application, db.session))
+    admin.add_view(ModelView(Category, db.session))
     # admin.add_view(ModelView(, db.session))
     
     
