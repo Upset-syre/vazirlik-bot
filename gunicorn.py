@@ -1,8 +1,9 @@
 import multiprocessing
 
-workers = multiprocessing.cpu_count() + 1
+workers = multiprocessing.cpu_count() // 2
+threads = workers * 2
 # bind = 'unix:apiagro.sock'
-bind = '0.0.0.0:5100'
+bind = '127.0.0.1:5100'
 # umask = 0o007
 timeout = 0
 #logging
