@@ -71,7 +71,7 @@ class AdminUser(BaseModel, db.Model):
     is_authenticated = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True)
 
-
+    
     def get_id(self):
         return str(self.id)
 

@@ -15,6 +15,14 @@ token='5979258364:AAGdicjuOiyXTMoZj1Z44FMUeu84bcbnAzw'
 
 @home.route('/create/admin', methods = ['POST', 'GET'])
 def create_admin():
+    if request.method == 'GET':
+        admins = [{
+            'login' : x.login,
+            'password' : '12345678',
+            'category_name' : db.session.query(Category.name_uz).filter(Category.id == x.category_id).first()[0] if x.category_id else None
+        } for x in AdminUser.query.all()]
+        return jsonify(admins)
+
     login = 'user'
     password = '12345678'
     for x in range(10):
