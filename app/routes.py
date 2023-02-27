@@ -20,7 +20,8 @@ def create_admin():
     for x in range(10):
         adm = AdminUser(
             login = login + str(x+1),
-            name = "Subadmin"
+            name = "Subadmin",
+            category_id = x+1
         )
         adm.set_password(password=password)
         db.session.add(adm)
