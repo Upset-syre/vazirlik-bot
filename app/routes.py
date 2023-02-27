@@ -7,7 +7,6 @@ from flask_login import login_required, login_user, current_user
 from app.models import *
 
 Per_page = 15
-import requests
 
 home = Blueprint("home", __name__, url_prefix='/home')
 
@@ -16,15 +15,16 @@ token='5979258364:AAGdicjuOiyXTMoZj1Z44FMUeu84bcbnAzw'
 
 @home.route('/create/admin', methods = ['POST', 'GET'])
 def create_admin():
-    login = 'yoda'
+    login = 'user'
     password = '12345678'
-    adm = AdminUser(
-        login = login,
-        name = "Yoda"
-    )
-    adm.set_password(password=password)
-    db.session.add(adm)
-    db.session.commit()
+    for x in range(10):
+        adm = AdminUser(
+            login = login + str(x+1),
+            name = "Subadmin"
+        )
+        adm.set_password(password=password)
+        db.session.add(adm)
+        db.session.commit()
     return jsonify({
         'msg':'ok'
     })
