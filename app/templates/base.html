@@ -43,17 +43,9 @@
                     <a class="{% if active == 1 %}active {% endif %}" href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
-                    <a class="{% if active == 2 %}active {% endif %}" href="{{ url_for('home.pending_page', category_id = 0, page = 1) }}"><span class="icon document" aria-hidden="true"></span>Yangi murojatlar</a>
+                    <a class="{% if active == 2 %}active {% endif %}" href="{{ url_for('home.pending_page', page = 1) }}"><span class="icon document" aria-hidden="true"></span>Murojatlar</a>
                 </li>
-                <li>
-                    <a class="{% if active == 3 %}active {% endif %}" href="{{ url_for('home.progress_page', category_id = 0, page = 1) }}"><span class="icon message" aria-hidden="true"></span>Kutilayotgan murojatlar</a>
-                </li>
-                <li>
-                    <a class="{% if active == 4 %}active {% endif %}" href="{{ url_for('home.completed_page', category_id = 0, page = 1) }}"><span class="icon paper" aria-hidden="true"></span>Tugallangan murojatlar</a>
-                </li>
-                <li>
-                    <a class="{% if active == 5 %}active {% endif %}" href="{{ url_for('home.all_users_page', page = 1) }}"><span class="icon user-3" aria-hidden="true"></span>Foydalanuvchilar</a>
-                </li>
+                
                 
             </ul>
             
@@ -79,8 +71,7 @@
   <div class="container main-nav">
     <div class="main-nav-start">
       <div class="search-wrapper">
-        <i data-feather="search" aria-hidden="true"></i>
-        <input type="text" placeholder="Enter keywords ..." required>
+        <span style="font-size:12px; font-weight:500">Welcome!</span>
       </div>
     </div>
     <div class="main-nav-end">
@@ -95,28 +86,7 @@
         <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
       </button>
       
-      <div class="nav-user-wrapper">
-        <button href="##" class="nav-user-btn dropdown-btn" title="My profile" type="button">
-          <span class="sr-only">My profile</span>
-          <span class="nav-user-img">
-            <picture><source srcset="{{ url_for('static', filename = 'img/avatar/avatar-illustrated-03.webp') }}" type="image/webp"><img src="{{ url_for('static', filename = 'img/avatar/avatar-illustrated-03.png') }}" alt="User name"></picture>
-          </span>
-        </button>
-        <ul class="users-item-dropdown nav-user-dropdown dropdown">
-          <li><a href="##">
-              <i data-feather="user" aria-hidden="true"></i>
-              <span>Profile</span>
-            </a></li>
-          <li><a href="##">
-              <i data-feather="settings" aria-hidden="true"></i>
-              <span>Account settings</span>
-            </a></li>
-          <li><a class="danger" href="##">
-              <i data-feather="log-out" aria-hidden="true"></i>
-              <span>Log out</span>
-            </a></li>
-        </ul>
-      </div>
+      
     </div>
   </div>
 </nav>

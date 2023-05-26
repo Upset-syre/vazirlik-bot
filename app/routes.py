@@ -90,71 +90,17 @@ def home_page():
 
 
 
-@home.route("/pending/<int:category_id>/<int:page>",methods = ['GET', 'POST'])
+@home.route("/pending/<int:page>",methods = ['GET', 'POST'])
 @login_required
-def pending_page(category_id, page):
+def pending_page( page):
     pending = 0
-    all_categories = 0
-    if current_user.category_id:
-        all_categories = db.session.query(Category.id, Category.name_uz).filter(Category.id == current_user.category_id).all()
+    pending = db.session.query(Application).filter_by(status = 'pending').paginate(page = page, per_page = Per_page)
         
-        pending = db.session.query(Application).filter_by(status = 'pending', category_id = current_user.category_id).paginate(page = page, per_page = Per_page)
-
-    else:
-        if category_id != 0:
-            pending = db.session.query(Application).filter_by(status = 'pending', category_id = category_id).paginate(page = page, per_page = Per_page)
-        else:
-            pending = db.session.query(Application).filter_by(status = 'pending').paginate(page = page, per_page = Per_page)
-        
-        all_categories = db.session.query(Category.id, Category.name_uz).all()
         
     
-    return render_template('pending.html', pending = pending, all_categories = all_categories , active = 2, category_id = category_id, page = page)
+    return render_template('pending.html', pending = pending , active = 2, page = page)
 
 
-
-@home.route("/completed/<int:category_id>/<int:page>",methods = ['GET', 'POST'])
-@login_required
-def completed_page(category_id, page):
-    completed = 0
-    all_categories = 0
-    if current_user.category_id:
-        all_categories = db.session.query(Category.id, Category.name_uz).filter(Category.id == current_user.category_id).all()
-        
-        completed = db.session.query(Application).filter_by(status = 'completed', category_id = current_user.category_id).paginate(page = page, per_page = Per_page)
-
-    else:
-        if category_id != 0:
-            completed = db.session.query(Application).filter_by(status = 'completed', category_id = category_id).paginate(page = page, per_page = Per_page)
-        else:
-            completed = db.session.query(Application).filter_by(status = 'completed').paginate(page = page, per_page = Per_page)
-        
-        all_categories = db.session.query(Category.id, Category.name_uz).all()
-        
-    
-    return render_template('completed.html', completed = completed, all_categories = all_categories , active = 4, category_id = category_id, page = page)
-
-
-@home.route("/progress/<int:category_id>/<int:page>",methods = ['GET', 'POST'])
-@login_required
-def progress_page(category_id, page):
-    progress = 0
-    all_categories = 0
-    if current_user.category_id:
-        all_categories = db.session.query(Category.id, Category.name_uz).filter(Category.id == current_user.category_id).all()
-        
-        progress = db.session.query(Application).filter_by(status = 'progress', category_id = current_user.category_id).paginate(page = page, per_page = Per_page)
-
-    else:
-        if category_id != 0:
-            progress = db.session.query(Application).filter_by(status = 'progress', category_id = category_id).paginate(page = page, per_page = Per_page)
-        else:
-            progress = db.session.query(Application).filter_by(status = 'progress').paginate(page = page, per_page = Per_page)
-        
-        all_categories = db.session.query(Category.id, Category.name_uz).all()
-        
-    
-    return render_template('progress.html', progress = progress, all_categories = all_categories , active = 3, category_id = category_id, page = page)
 
 
 @home.route('/all_users/<int:page>', methods = ['POST','GET'])

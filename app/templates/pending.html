@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-12"><h2 class="main-title">Yangi murojatlar</h2></div>
+    <div class="col-12"><h2 class="main-title">Murojatlar</h2></div>
     
 </div>
 <div class="col-12">
@@ -17,11 +17,12 @@
               </label>
             </th>
             <th>Murojat</th>
-              <th>Status</th>
-              <th>Javob</th>
               <th>Murojatchi viloyati/shaxri</th>
               <th>Murojatchi tumani</th>
+              <th>Murojatchi mfy</th>
               <th>Murojatchi FIO</th>
+              <th>Murojatchi yoshi</th>
+              <th>Murojatchi jinsi</th>
               <th>Murojatchi telefon raqami</th>
           </tr>
         </thead>
@@ -31,41 +32,35 @@
           <tr>
             <td>
               <label class="users-table__checkbox">
-                 
                 {{ item.id }}
               </label>
             </td>
-            <td>
+            <td  class="description" style="max-width:300px;">
               {{ item.application }}
             </td>
             <td>
-              {{ item.status }}
-            </td>
-            <td class="description" style="max-width:300px;">
-              {{ item.answer }}
+              {{ item.users.users_viloyat.name_uz }}
             </td>
             <td>
-              {{ item.category.name_uz }}
+              {{ item.users.users_tuman.name_uz2 }}
           </td>
+            <td>
+              {{ item.users.users_mfy.name_uz }}
+            </td>
             <td>
               {{ item.users.fio }}
             </td>
             <td>
-              {{ item.users.phone }}
+              {{ item.users.year }}
             </td>
             <td>
-              <span class="p-relative">
-                <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                  <div class="sr-only">More info</div>
-                  <i data-feather="more-horizontal" aria-hidden="true"></i>
-                </button>
-                <ul class="users-item-dropdown dropdown">
-                  <li><a class="a-edit" href='{{ url_for("home.send_answer", application_id = item.id) }}'>Javob yozish</a></li>
-                  <li><a class="a-edit" href="{{ url_for('home.set_progress', application_id = item.id) }}">Ko'rib chiqilmoqda</a></li>
-                  
-                </ul>
-              </span>
+              {{ item.users.sex }}
             </td>
+            <td>
+              {{ item.users.phone }}
+            </td>
+            
+            
           </tr>
           
           {% endfor %}

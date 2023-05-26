@@ -21,7 +21,7 @@ def load_user(id):
 def create_app(testing=False):
         # Blueprints
     from app.routes import home
-
+    
     # from app.smartboard_student.routes import student
 
     # from app.EDM.routes import edm

@@ -48,11 +48,16 @@ class BaseModel(db.Model):
 
 class User(BaseModel, db.Model):
     __tablename__ = 'user'
-    fio = db.Column(db.String)
-    phone = db.Column(db.String)
-    tg_user_id = db.Column(db.Integer)
+    fio = db.Column('fio', db.String)
+    phone = db.Column('phone', db.String)
+    lang = db.Column('lang', db.String)
+    tuman_id = db.Column('tuman_id', db.Integer, db.ForeignKey('tuman.id'))
+    mfy_id = db.Column('mfy_id', db.Integer, db.ForeignKey('mfy.id'))
+    sex = db.Column('sex', db.String)
+    year = db.Column('year', db.Integer)
+    tg_user_id = db.Column('tg_user_id', db.BigInteger)
     application = relationship("Application", backref='users')
-
+    viloyat_id = db.Column(db.Integer, db.ForeignKey('viloyat.id'))
     def init(self, fio, phone, tg_user_id):
         self.fio = fio
         self.phone = phone
@@ -61,6 +66,32 @@ class User(BaseModel, db.Model):
     def repr(self):
         return f"{self.id}"
 
+class Viloyat(BaseModel, db.Model):
+    tablename = 'viloyat'
+    name_uz = db.Column('name_uz', db.String(150))
+    name_ru = db.Column('name_ru', db.String(150))
+    name_uz_kir = db.Column('name_uz_kir', db.String(150))
+    user = relationship("User", backref='viloyati')
+    tumans = relationship("Tuman", backref='viloyati_tuman')
+    users = relationship("User", backref='users_viloyat')
+
+class Tuman(BaseModel, db.Model):
+    tablename = 'tuman'
+    name_uz2 = db.Column('name_uz2', db.String(150))
+    name_ru2 = db.Column('name_ru2', db.String(150))
+    name_uz_kir2 = db.Column('name_uz_kir2', db.String(150))
+    viloyat_id = db.Column(db.Integer, db.ForeignKey('viloyat.id'))
+    mahalas = relationship("Mfy", backref='mahala')
+    users = relationship("User", backref='users_tuman')
+
+
+class Mfy(BaseModel, db.Model):
+    tablename = 'mfy'
+    name_uz = db.Column('name_uz', db.String(150))
+    name_ru = db.Column('name_ru', db.String(150))
+    name_uz_kir = db.Column('name_uz_kir', db.String(150))
+    tuman_id = db.Column(db.Integer, db.ForeignKey('tuman.id'))
+    users = relationship("User", backref='users_mfy')
 
 class AdminUser(BaseModel, db.Model):
     __tablename__ = 'admin'
@@ -88,7 +119,6 @@ class Category(BaseModel, db.Model):
     name_uz_kir = db.Column(db.String)
     name_ru = db.Column(db.String)
 
-    application = relationship("Application", backref='category')
     admins = relationship("AdminUser", backref = 'category')
 
     def init(self, name):
@@ -102,7 +132,7 @@ class Application(BaseModel, db.Model):
     answer = db.Column(db.String)
     lang = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    
 
     def int(self, status, application, answer, user_id, category_id):
         self.status = status
