@@ -53,7 +53,7 @@ class User(BaseModel, db.Model):
     lang = db.Column('lang', db.String)
     tuman_id = db.Column('tuman_id', db.Integer, db.ForeignKey('tuman.id'))
     mfy_id = db.Column('mfy_id', db.Integer, db.ForeignKey('mfy.id'))
-    sex = db.Column('sex', db.String)
+    sex_id = db.Column(db.Integer, db.ForeignKey('sex.id'),)
     year = db.Column('year', db.Integer)
     tg_user_id = db.Column('tg_user_id', db.BigInteger)
     application = relationship("Application", backref='users')
@@ -127,11 +127,13 @@ class Category(BaseModel, db.Model):
 
 class Application(BaseModel, db.Model):
     __tablename__ = 'application'
+    __searchable__ = ['application', 'answer']
     status = db.Column(db.String, default='pending')
     application = db.Column(db.Text)
     answer = db.Column(db.String)
     lang = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    created_at = db.Column(db.DateTime, default=datetime.now())
     
 
     def int(self, status, application, answer, user_id, category_id):
@@ -158,6 +160,11 @@ class Text(BaseModel, db.Model):
     step2 = db.Column('step2', db.String)
     step3 = db.Column('step3', db.Text)
     step4 = db.Column('step4', db.Text)
+    step5 = db.Column('step5', db.Text)
+    step6 = db.Column('step6', db.Text)
+    step7 = db.Column('step7', db.Text)
+    step8 = db.Column('step8', db.Text)
+    step9 = db.Column('step9', db.Text)
     lang = db.Column('lang', db.Text)
 
     def int(self, id, greeting, step1, step2, step3, step4, lang):
@@ -172,3 +179,10 @@ class Text(BaseModel, db.Model):
 
 
     
+class Sex(db.Model):
+    __tablename__ = 'sex'
+    id = db.Column(db.Integer, primary_key=True)
+    name_uz = db.Column(db.String(150))
+    name_ru = db.Column(db.String(150))
+    name_uz_kir = db.Column(db.String(150))
+    user = relationship("User", backref='user_sex')

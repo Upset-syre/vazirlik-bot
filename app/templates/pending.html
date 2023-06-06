@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-12"><h2 class="main-title">Murojatlar</h2></div>
+    <div class="col-6"><h2 class="main-title">Yangi murojatlar</h2></div>
     
 </div>
 <div class="col-12">
@@ -24,6 +24,7 @@
               <th>Murojatchi yoshi</th>
               <th>Murojatchi jinsi</th>
               <th>Murojatchi telefon raqami</th>
+              <th>Bajarish</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +55,10 @@
               {{ item.users.year }}
             </td>
             <td>
-              {{ item.users.sex }}
+              {{ item.users.user_sex.name_uz }}
+            </td>
+            <td>
+              {{ item.users.phone }}
             </td>
             <td>
               {{ item.users.phone }}

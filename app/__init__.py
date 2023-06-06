@@ -7,9 +7,10 @@ from flask_debugtoolbar import DebugToolbarExtension
 from app.models import User, Category, Application,Text,AdminUser
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_msearch import Search
 
 
-
+search = Search()
 
 
 login_manager = LoginManager()
@@ -45,6 +46,7 @@ def create_app(testing=False):
     db.init_app(app)
     login_manager.init_app(app)
     migrate = Migrate(app, db)
+    search.init_app(app)
     app.register_blueprint(home)
     # app.register_blueprint(student)
     # app.register_blueprint(edm)

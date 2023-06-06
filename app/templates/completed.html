@@ -2,68 +2,84 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-12"><h2 class="main-title">Tugallangan murojatlar</h2></div>
-    <div class="col-12">
-      <div class="users-table table-wrapper">
-        <table class="posts-table">
-          <thead>
-            <tr class="users-table-info">
-              <th>
-                <label class="users-table__checkbox ms-20">
-                  Id
-                </label>
-              </th>
-              <th>Murojat</th>
-              <th>Status</th>
-              <th>Javob</th>
-              <th>Murojatchi viloyati/shaxri</th>
-              <th>Murojatchi tumani</th>
-              <th>Murojatchi FIO</th>
-              <th>Murojatchi telefon raqami</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% set count = namespace(value=1) %}
-            {% for item in completed.items %}
-            <tr>
-              <td>
-                <label class="users-table__checkbox">
-                   
-                  {{ item.id }}
-                </label>
-              </td>
-              <td>
-                {{ item.application }}
-              </td>
-              <td>
-                {{ item.status }}
-              </td>
-              <td class="description" style="max-width:300px;">
-                {{ item.answer }}
-              </td>
-              <td>
-                  {{ item.category.name_uz }}
-              </td>
-              <td>
-                tuman
+<!-- <div class="row">
+    <div class="col-6"><h2 class="main-title">Tugallangan murojatlar</h2></div>
+    <div class="col-6"><select onchange="location = this.value;" class="form-select select-right" aria-label="Default select example">
+        <!-- {% set count = namespace(value=0) %}
+        {% for x in all_categories %}
+        
+        {% if count.value == 0 and all_categories|length != 1 %}
+        <option {% if category_id == 0 %} selected {% endif %} value = {{ url_for("home.completed_page", category_id = 0, page = 1) }}>
+          Barcha kategoriyalar
+        </option>
+        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.completed_page", category_id = x[0], page = 1) }}>
+          
+          {{ x[1] }}
+        </option>
+
+        {% else %}
+        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.completed_page", category_id = x[0], page = 1) }}>
+          {{ x[1] }}
+        </option>
+        {% endif %}>
+        
+          {% set count.value = count.value + 1 %}
+
+
+        {% endfor %} -->
+<!--         
+      </select></div>
+</div> --> -->
+
+    <div class="users-table table-wrapper">
+      <table class="posts-table">
+        <thead>
+          <tr class="users-table-info">
+            <th>
+              <label class="users-table__checkbox ms-20">
+                Id
+              </label>
+            </th>
+            <th>Murojat</th>
+            <th>Status</th>
+            <th>Javob</th>
+            <th>Murojatchi FIO</th>
+            <th>Murojatchi telefon raqami</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set count = namespace(value=1) %}
+          {% for item in completed.items %}
+          <tr>
+            <td>
+              <label class="users-table__checkbox">
+                 
+                {{ item.id }}
+              </label>
             </td>
-              <td>
-                {{ item.users.fio }}
-              </td>
-              <td>
-                {{ item.users.phone }}
-              </td>
-              
-            </tr>
+            <td>
+              {{ item.application }}
+            </td>
+            <td>
+              {{ item.status }}
+            </td>
+            <td class="description" style="max-width:300px;">
+              {{ item.answer }}
+            </td>
+            <td>
+              {{ item.users.fio }}
+            </td>
+            <td>
+              {{ item.users.phone }}
+            </td>
             
-            {% endfor %}
-            
-          </tbody>
-        </table>
-      </div>
+          </tr>
+          
+          {% endfor %}
+          
+        </tbody>
+      </table>
     </div>
-    
     
     
     <div class="pagination:container">

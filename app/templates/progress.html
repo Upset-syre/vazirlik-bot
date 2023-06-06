@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-12"><h2 class="main-title">Kutilayotgan murojatlar</h2></div>
-    
-    <div class="col-12">
+    <div class="col-6"><h2 class="main-title">Kutilayotgan murojatlar</h2></div>
+</div>
+
     <div class="users-table table-wrapper">
       <table class="posts-table">
         <thead>
@@ -16,12 +16,14 @@
               </label>
             </th>
             <th>Murojat</th>
-              <th>Status</th>
-              <th>Javob</th>
               <th>Murojatchi viloyati/shaxri</th>
               <th>Murojatchi tumani</th>
+              <th>Murojatchi mfy</th>
               <th>Murojatchi FIO</th>
+              <th>Murojatchi yoshi</th>
+              <th>Murojatchi jinsi</th>
               <th>Murojatchi telefon raqami</th>
+              <th>Bajarish</th>
           </tr>
         </thead>
         <tbody>
@@ -30,27 +32,29 @@
           <tr>
             <td>
               <label class="users-table__checkbox">
-                 
                 {{ item.id }}
               </label>
             </td>
-            <td>
+            <td  class="description" style="max-width:300px;">
               {{ item.application }}
             </td>
             <td>
-              {{ item.status }}
-            </td>
-            <td class="description" style="max-width:300px;">
-              {{ item.answer }}
+              {{ item.users.users_viloyat.name_uz }}
             </td>
             <td>
-                {{ item.category.name_uz }}
-            </td>
-            <td>
-              tuman
+              {{ item.users.users_tuman.name_uz2 }}
           </td>
             <td>
+              {{ item.users.users_mfy.name_uz }}
+            </td>
+            <td>
               {{ item.users.fio }}
+            </td>
+            <td>
+              {{ item.users.year }}
+            </td>
+            <td>
+              {{ item.users.user_sex.name_uz }}
             </td>
             <td>
               {{ item.users.phone }}
