@@ -4,31 +4,6 @@
 
 <div class="row">
     <div class="col-6"><h2 class="main-title">Kutilayotgan murojatlar</h2></div>
-    <div class="col-6"><select onchange="location = this.value;" class="form-select select-right" aria-label="Default select example">
-        {% set count = namespace(value=0) %}
-        {% for x in all_categories %}
-        
-        {% if count.value == 0 and all_categories|length != 1 %}
-        <option {% if category_id == 0 %} selected {% endif %} value = {{ url_for("home.progress_page", category_id = 0, page = 1) }}>
-          Barcha kategoriyalar
-        </option>
-        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.progress_page", category_id = x[0], page = 1) }}>
-          
-          {{ x[1] }}
-        </option>
-
-        {% else %}
-        <option {% if category_id == x[0] %} selected {% endif %} value = {{ url_for("home.progress_page", category_id = x[0], page = 1) }}>
-          {{ x[1] }}
-        </option>
-        {% endif %}>
-        
-          {% set count.value = count.value + 1 %}
-
-
-        {% endfor %}
-        
-      </select></div>
 </div>
 
     <div class="users-table table-wrapper">
@@ -41,12 +16,14 @@
               </label>
             </th>
             <th>Murojat</th>
-            <th>Status</th>
-            <th>Javob</th>
-            <th>Murojat kategoriyasi</th>
-            <th>Murojatchi FIO</th>
-            <th>Murojatchi telefon raqami</th>
-            <th>Bajarish</th>
+              <th>Murojatchi viloyati/shaxri</th>
+              <th>Murojatchi tumani</th>
+              <th>Murojatchi mfy</th>
+              <th>Murojatchi FIO</th>
+              <th>Murojatchi yoshi</th>
+              <th>Murojatchi jinsi</th>
+              <th>Murojatchi telefon raqami</th>
+              <th>Bajarish</th>
           </tr>
         </thead>
         <tbody>
@@ -55,24 +32,29 @@
           <tr>
             <td>
               <label class="users-table__checkbox">
-                 
                 {{ item.id }}
               </label>
             </td>
-            <td>
+            <td  class="description" style="max-width:300px;">
               {{ item.application }}
             </td>
             <td>
-              {{ item.status }}
-            </td>
-            <td class="description" style="max-width:300px;">
-              {{ item.answer }}
+              {{ item.users.users_viloyat.name_uz }}
             </td>
             <td>
-                {{ item.category.name_uz }}
+              {{ item.users.users_tuman.name_uz2 }}
+          </td>
+            <td>
+              {{ item.users.users_mfy.name_uz }}
             </td>
             <td>
               {{ item.users.fio }}
+            </td>
+            <td>
+              {{ item.users.year }}
+            </td>
+            <td>
+              {{ item.users.user_sex.name_uz }}
             </td>
             <td>
               {{ item.users.phone }}

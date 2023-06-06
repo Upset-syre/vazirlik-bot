@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-6"><h2 class="main-title">Tugallangan murojatlar</h2></div>
     <div class="col-6"><select onchange="location = this.value;" class="form-select select-right" aria-label="Default select example">
-        {% set count = namespace(value=0) %}
+        <!-- {% set count = namespace(value=0) %}
         {% for x in all_categories %}
         
         {% if count.value == 0 and all_categories|length != 1 %}
@@ -26,10 +26,10 @@
           {% set count.value = count.value + 1 %}
 
 
-        {% endfor %}
-        
+        {% endfor %} -->
+<!--         
       </select></div>
-</div>
+</div> --> -->
 
     <div class="users-table table-wrapper">
       <table class="posts-table">
@@ -43,7 +43,6 @@
             <th>Murojat</th>
             <th>Status</th>
             <th>Javob</th>
-            <th>Murojat kategoriyasi</th>
             <th>Murojatchi FIO</th>
             <th>Murojatchi telefon raqami</th>
           </tr>
@@ -66,9 +65,6 @@
             </td>
             <td class="description" style="max-width:300px;">
               {{ item.answer }}
-            </td>
-            <td>
-                {{ item.category.name_uz }}
             </td>
             <td>
               {{ item.users.fio }}
