@@ -53,7 +53,7 @@ class User(BaseModel, db.Model):
     lang = db.Column('lang', db.String)
     tuman_id = db.Column('tuman_id', db.Integer, db.ForeignKey('tuman.id'))
     mfy_id = db.Column('mfy_id', db.Integer, db.ForeignKey('mfy.id'))
-    sex = db.Column('sex', db.String)
+    sex_id = db.Column('sex_id', db.String)
     year = db.Column('year', db.Integer)
     tg_user_id = db.Column('tg_user_id', db.BigInteger)
     application = relationship("Application", backref='users')
@@ -127,6 +127,8 @@ class Category(BaseModel, db.Model):
 
 class Application(BaseModel, db.Model):
     __tablename__ = 'application'
+    inn = db.Column(db.String)
+    file = db.Column(db.String)
     status = db.Column(db.String, default='pending')
     application = db.Column(db.Text)
     answer = db.Column(db.String)

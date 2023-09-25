@@ -19,11 +19,10 @@
             <th>Murojat</th>
               <th>Murojatchi viloyati/shaxri</th>
               <th>Murojatchi tumani</th>
-              <th>Murojatchi mfy</th>
+              <th>Murojatchi fermer xo'jaligi STIR raqami</th>
               <th>Murojatchi FIO</th>
-              <th>Murojatchi yoshi</th>
-              <th>Murojatchi jinsi</th>
               <th>Murojatchi telefon raqami</th>
+              <th>Murojatchining dalil fayli/rasmi</th>
           </tr>
         </thead>
         <tbody>
@@ -45,19 +44,21 @@
               {{ item.users.users_tuman.name_uz2 }}
           </td>
             <td>
-              {{ item.users.users_mfy.name_uz }}
+              {{ item.inn }}
             </td>
             <td>
               {{ item.users.fio }}
             </td>
-            <td>
-              {{ item.users.year }}
-            </td>
-            <td>
-              {{ item.users.sex }}
-            </td>
+            
+            
             <td>
               {{ item.users.phone }}
+            </td>
+            <td>
+              <a href="{{ url_for('send_f', p = item.file ) }}">
+                download
+              </a>
+              
             </td>
             
             

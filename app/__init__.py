@@ -71,6 +71,14 @@ def create_app(testing=False):
     def unauthorized_callback():
         return redirect(url_for('home.login'))
     
+
+    @app.route('/uploads/<path:p>')
+    def send_f(p):
+        print("126516516")
+        attach = request.args.get('download')
+        if attach:
+            return send_from_directory("../../tgbot_drugoy",p, as_attachment=True)    
+        return send_from_directory("../../tgbot_drugoy",p)
         
 
     @app.after_request
